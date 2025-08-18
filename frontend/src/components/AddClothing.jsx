@@ -51,7 +51,7 @@ const AddClothing = ({ token }) => {
       Object.keys(formData).forEach((key) => data.append(key, formData[key]));
       if (file) data.append("image", file);
 
-      await axios.post("http://localhost:5000/api/clothing", data, {
+      await axios.post("https://wardrobe-manager-render.onrender.com/api/clothing", data, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

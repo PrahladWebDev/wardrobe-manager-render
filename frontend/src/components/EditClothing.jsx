@@ -21,7 +21,7 @@ const EditClothing = ({ token }) => {
   useEffect(() => {
     const fetchClothing = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/clothing/${id}`, {
+        const response = await axios.get(`https://wardrobe-manager-render.onrender.com/api/clothing/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setFormData(response.data);
@@ -53,7 +53,7 @@ const EditClothing = ({ token }) => {
         data.append('image', file); // overwrite with new file
       }
 
-      await axios.put(`http://localhost:5000/api/clothing/${id}`, data, {
+      await axios.put(`https://wardrobe-manager-render.onrender.com/api/clothing/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

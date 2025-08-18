@@ -21,7 +21,7 @@ const WeatherSuggestions = () => {
           const { latitude, longitude } = position.coords;
 
           const response = await axios.get(
-            "http://localhost:5000/api/clothing/weather-suggestions",
+            "https://wardrobe-manager-render.onrender.com/api/clothing/weather-suggestions",
             {
               headers: { Authorization: `Bearer ${token}` },
               params: { lat: latitude, lon: longitude },

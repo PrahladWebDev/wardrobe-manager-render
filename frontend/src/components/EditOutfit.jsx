@@ -12,7 +12,7 @@ const EditOutfit = ({ token }) => {
   useEffect(() => {
     const fetchOutfit = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/outfits/${id}`, {
+        const response = await axios.get(`https://wardrobe-manager-render.onrender.com/api/outfits/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setFormData({
@@ -28,7 +28,7 @@ const EditOutfit = ({ token }) => {
 
     const fetchClothes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/clothing", {
+        const response = await axios.get("https://wardrobe-manager-render.onrender.com/api/clothing", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setClothes(response.data);
@@ -56,7 +56,7 @@ const EditOutfit = ({ token }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/outfits/${id}`, formData, {
+      await axios.put(`https://wardrobe-manager-render.onrender.com/api/outfits/${id}`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setError("");

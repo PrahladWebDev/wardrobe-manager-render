@@ -18,7 +18,7 @@ const Analytics = ({ token }) => {
     const fetchAnalytics = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/clothing/analytics",
+          "https://wardrobe-manager-render.onrender.com/api/clothing/analytics",
           {
             headers: { Authorization: `Bearer ${token}` },
           }

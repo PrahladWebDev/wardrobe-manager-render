@@ -77,7 +77,7 @@ const ClothingList = ({ token }) => {
   useEffect(() => {
     const fetchClothes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/clothing", {
+        const response = await axios.get("https://wardrobe-manager-render.onrender.com/api/clothing", {
           headers: { Authorization: `Bearer ${token}` },
           params: filters,
         });
@@ -98,7 +98,7 @@ const ClothingList = ({ token }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/clothing/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.delete(`https://wardrobe-manager-render.onrender.com/api/clothing/${id}`, { headers: { Authorization: `Bearer ${token}` } });
       setClothes(clothes.filter((item) => item._id !== id));
     } catch (err) {
       console.error("Failed to delete clothing", err);
@@ -107,7 +107,7 @@ const ClothingList = ({ token }) => {
 
   const handleFavorite = async (id, isFavorite) => {
     try {
-      await axios.put(`http://localhost:5000/api/clothing/${id}`, { isFavorite: !isFavorite }, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.put(`https://wardrobe-manager-render.onrender.com/api/clothing/${id}`, { isFavorite: !isFavorite }, { headers: { Authorization: `Bearer ${token}` } });
       setClothes(clothes.map((item) => item._id === id ? { ...item, isFavorite: !isFavorite } : item));
     } catch (err) {
       console.error("Failed to update favorite", err);
@@ -120,7 +120,7 @@ const ClothingList = ({ token }) => {
       const now = new Date();
 
       // Backend appends the new wear date automatically
-      await axios.put(`http://localhost:5000/api/clothing/${id}`, { wearCount: current.wearCount + 1, lastWorn: now }, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.put(`https://wardrobe-manager-render.onrender.com/api/clothing/${id}`, { wearCount: current.wearCount + 1, lastWorn: now }, { headers: { Authorization: `Bearer ${token}` } });
 
       // Optimistically update local state
       setClothes(

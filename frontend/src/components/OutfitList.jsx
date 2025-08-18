@@ -11,7 +11,7 @@ const OutfitList = ({ token }) => {
   useEffect(() => {
     const fetchOutfits = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/outfits", {
+        const response = await axios.get("https://wardrobe-manager-render.onrender.com/api/outfits", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOutfits(response.data);
@@ -24,7 +24,7 @@ const OutfitList = ({ token }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/outfits/${id}`, {
+      await axios.delete(`https://wardrobe-manager-render.onrender.com/api/outfits/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOutfits(outfits.filter((outfit) => outfit._id !== id));
@@ -37,7 +37,7 @@ const OutfitList = ({ token }) => {
   const handleRandomOutfit = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/outfits/random",
+        "https://wardrobe-manager-render.onrender.com/api/outfits/random",
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setRandomOutfit(response.data);

@@ -14,7 +14,7 @@ const ClothingCalendar = ({ token }) => {
   useEffect(() => {
     const fetchClothes = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/clothing', {
+        const response = await axios.get('https://wardrobe-manager-render.onrender.com/api/clothing', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setClothes(response.data);

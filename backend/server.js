@@ -14,7 +14,7 @@ const __dirname = path.resolve();
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:5173", // React frontend URL
+  origin: "https://wardrobe-manager-render.onrender.com", // React frontend URL
   credentials: true, // If you need cookies/auth headers
 }));
 
