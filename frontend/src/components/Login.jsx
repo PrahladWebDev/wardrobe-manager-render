@@ -6,10 +6,13 @@ const Login = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // New loading state
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Start loading
+    setError(""); // Clear previous errors
     try {
       const response = await axios.post("https://wardrobe-manager-render.onrender.com/api/auth/login", {
         email,
@@ -21,6 +24,8 @@ const Login = ({ setToken }) => {
     } catch (err) {
       console.error("Login failed", err);
       setError("Invalid credentials");
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -35,6 +40,10 @@ const Login = ({ setToken }) => {
           <p className="text-red-500 text-center text-sm mb-4">{error}</p>
         )}
 
+        {isLoading && (
+          <p className="text-indigo-600 text-center text-sm mb-4">Logging in...</p>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <input
@@ -44,6 +53,7 @@ const Login = ({ setToken }) => {
               placeholder="Email Address"
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 placeholder-gray-400"
               required
+              disabled={isLoading} // Disable input during loading
             />
           </div>
 
@@ -55,14 +65,16 @@ const Login = ({ setToken }) => {
               placeholder="Password"
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 placeholder-gray-400"
               required
+              disabled={isLoading} // Disable input during loading
             />
           </div>
 
           <button
             type="submit"
             className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition duration-300 shadow-md"
+            disabled={isLoading} // Disable button during loading
           >
-            Login
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
 
@@ -71,6 +83,7 @@ const Login = ({ setToken }) => {
           <button
             onClick={() => navigate("/register")}
             className="text-indigo-600 hover:underline font-medium"
+            disabled={isLoading} // Disable register link during loading
           >
             Register here
           </button>
