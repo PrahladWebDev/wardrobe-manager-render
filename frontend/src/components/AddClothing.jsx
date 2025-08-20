@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +22,12 @@ const materialOptions = [
   { label: "Fleece (Special, soft, insulating synthetic)", value: "fleece" },
   { label: "Chiffon (Special, lightweight, sheer)", value: "chiffon" },
   { label: "Velvet (Special, soft dense pile, luxurious)", value: "velvet" },
+  { label: "Rubber (Shoes, flexible, waterproof)", value: "rubber" },
+  { label: "Suede (Shoes, soft leather, textured)", value: "suede" },
+  { label: "Canvas (Shoes, durable, breathable)", value: "canvas" },
+  { label: "Stainless Steel (Watch, durable, corrosion-resistant)", value: "stainless-steel" },
+  { label: "Titanium (Watch, lightweight, strong)", value: "titanium" },
+  { label: "Ceramic (Watch, scratch-resistant, modern)", value: "ceramic" },
 ];
 
 const AddClothing = ({ token }) => {
@@ -40,7 +46,45 @@ const AddClothing = ({ token }) => {
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+
+    if (selectedFile) {
+      const img = new Image();
+      img.src = URL.createObjectURL(selectedFile);
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        const imageData = ctx.getImageData(0, 0, img.width, img.height).data;
+        const colorCounts = {};
+        let maxCount = 0;
+        let dominantColor = { r: 0, g: 0, b: 0 };
+
+        for (let i = 0; i < imageData.length; i += 4) {
+          const r = imageData[i];
+          const g = imageData[i + 1];
+          const b = imageData[i + 2];
+          const colorKey = `${r},${g},${b}`;
+          colorCounts[colorKey] = (colorCounts[colorKey] || 0) + 1;
+
+          if (colorCounts[colorKey] > maxCount) {
+            maxCount = colorCounts[colorKey];
+            dominantColor = { r, g, b };
+          }
+        }
+
+        const hexColor = rgbToHex(dominantColor.r, dominantColor.g, dominantColor.b);
+        setFormData((prev) => ({ ...prev, color: hexColor }));
+      };
+    }
+  };
+
+  const rgbToHex = (r, g, b) => {
+    return "#" + [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("");
   };
 
   const handleSubmit = async (e) => {
@@ -102,6 +146,7 @@ const AddClothing = ({ token }) => {
             <option value="shoes">Shoes</option>
             <option value="jacket">Jacket</option>
             <option value="accessory">Accessory</option>
+            <option value="watch">Watch</option>
             <option value="other">Other</option>
           </select>
 
@@ -113,7 +158,7 @@ const AddClothing = ({ token }) => {
               onChange={(e) =>
                 setFormData({ ...formData, color: e.target.value })
               }
-              placeholder="Color"
+              placeholder="Color (auto-detected from image)"
               className="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 placeholder-gray-400"
             />
             <input
