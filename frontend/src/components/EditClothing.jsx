@@ -95,6 +95,7 @@ const EditClothing = ({ token }) => {
           <option value="shoes">Shoes</option>
           <option value="jacket">Jacket</option>
           <option value="accessory">Accessory</option>
+          <option value="watch">Watch</option>
           <option value="other">Other</option>
         </select>
 
