@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import { FaTshirt, FaList, FaChartBar, FaCloudSun, FaCalendarAlt, FaSignOutAlt, FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ClothingList from "./components/ClothingList";
@@ -30,7 +31,7 @@ const Header = ({ token, setToken }) => {
   return (
     <header className="bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
       <nav className="container mx-auto flex flex-wrap items-center justify-between py-4 px-4 sm:px-6 lg:px-8 text-white">
-        <Link to="/" className="text-2xl font-bold tracking-wide">
+        <Link to="/" className="text-2xl font-bold tracking-wide flex items-center gap-2">
           👕 Wardrobe Manager
         </Link>
         <button
@@ -63,54 +64,54 @@ const Header = ({ token, setToken }) => {
               <li>
                 <Link
                   to="/clothing"
-                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md"
+                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md flex items-center gap-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Clothing
+                  <FaTshirt /> Clothing
                 </Link>
               </li>
               <li>
                 <Link
                   to="/outfits"
-                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md"
+                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md flex items-center gap-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Outfits
+                  <FaList /> Outfits
                 </Link>
               </li>
               <li>
                 <Link
                   to="/analytics"
-                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md"
+                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md flex items-center gap-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Analytics
+                  <FaChartBar /> Analytics
                 </Link>
               </li>
               <li>
                 <Link
                   to="/weather"
-                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md"
+                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md flex items-center gap-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Weather
+                  <FaCloudSun /> Weather
                 </Link>
               </li>
               <li>
                 <Link
                   to="/clothing/calendar"
-                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md"
+                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md flex items-center gap-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Calendar
+                  <FaCalendarAlt /> Calendar
                 </Link>
               </li>
               <li>
                 <button
                   onClick={handleLogout}
-                  className="block w-full text-left sm:w-auto bg-red-500 px-4 py-2 rounded-lg shadow hover:bg-red-600 transition duration-200"
+                  className="block w-full text-left sm:w-auto bg-red-500 px-4 py-2 rounded-lg shadow hover:bg-red-600 transition duration-200 flex items-center gap-2"
                 >
-                  Logout
+                  <FaSignOutAlt /> Logout
                 </button>
               </li>
             </>
@@ -119,19 +120,19 @@ const Header = ({ token, setToken }) => {
               <li>
                 <Link
                   to="/login"
-                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md"
+                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md flex items-center gap-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Login
+                  <FaSignInAlt /> Login
                 </Link>
               </li>
               <li>
                 <Link
                   to="/register"
-                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md"
+                  className="block hover:text-yellow-300 transition duration-200 px-2 py-1 rounded-md flex items-center gap-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Register
+                  <FaUserPlus /> Register
                 </Link>
               </li>
             </>
