@@ -158,6 +158,9 @@ const App = () => {
             <Route path="/" element={token ? <Navigate to="/clothing" /> : <LandingPage />} />
             <Route path="/login" element={<Login setToken={setToken} />} />
             <Route path="/register" element={<Register setToken={setToken} />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+<Route path="/reset-password/:token" element={<ResetPassword setToken={setToken} />} />
+<Route path="/verify/:token" element={<EmailVerification setToken={setToken} />} />
             
             {/* Clothing Routes */}
             <Route
