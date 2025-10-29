@@ -2,7 +2,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import User from '../models/User.js';
-import { sendEmail } from '../utils/email.js';
+import { sendEmail } from '../email.js';
 
 const router = express.Router();
 
