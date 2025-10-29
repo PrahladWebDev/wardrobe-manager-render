@@ -153,7 +153,7 @@ router.post('/forgot-password', async (req, res) => {
     user.resetPasswordExpires = Date.now() + 60 * 60 * 1000; // 1 hour
     await user.save();
 
-    const resetUrl = `https://your-frontend-domain.com/reset-password/${resetToken}`; // Update with your domain
+    const resetUrl = `https://wardrobe-manager-render.onrender.com/reset-password/${resetToken}`; // Update with your domain
     const html = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
         <h2 style="color: #f59e0b;">Reset Your Password</h2>
