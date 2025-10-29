@@ -6,26 +6,29 @@ const Login = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // New loading state
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Start loading
-    setError(""); // Clear previous errors
+    setIsLoading(true);
+    setError("");
     try {
       const response = await axios.post("https://wardrobe-manager-render.onrender.com/api/auth/login", {
         email,
         password,
       });
-      localStorage.setItem("token", response.data.token);
-      setToken(response.data.token);
-      navigate("/clothing");
+
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        setToken(response.data.token);
+        navigate("/clothing");
+      }
     } catch (err) {
-      console.error("Login failed", err);
-      setError("Invalid credentials");
+      const msg = err.response?.data?.message || "Login failed";
+      setError(msg);
     } finally {
-      setIsLoading(false); // Stop loading
+      setIsLoading(false);
     }
   };
 
@@ -45,34 +48,28 @@ const Login = ({ setToken }) => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email Address"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 placeholder-gray-400"
-              required
-              disabled={isLoading} // Disable input during loading
-            />
-          </div>
-
-          <div>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 placeholder-gray-400"
-              required
-              disabled={isLoading} // Disable input during loading
-            />
-          </div>
-
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email Address"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 placeholder-gray-400"
+            required
+            disabled={isLoading}
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none text-gray-700 placeholder-gray-400"
+            required
+            disabled={isLoading}
+          />
           <button
             type="submit"
             className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition duration-300 shadow-md"
-            disabled={isLoading} // Disable button during loading
+            disabled={isLoading}
           >
             {isLoading ? "Logging in..." : "Login"}
           </button>
@@ -83,9 +80,17 @@ const Login = ({ setToken }) => {
           <button
             onClick={() => navigate("/register")}
             className="text-indigo-600 hover:underline font-medium"
-            disabled={isLoading} // Disable register link during loading
+            disabled={isLoading}
           >
             Register here
+          </button>
+        </p>
+        <p className="text-center text-gray-600 text-sm mt-2">
+          <button
+            onClick={() => navigate("/forgot-password")}
+            className="text-indigo-600 hover:underline font-medium"
+          >
+            Forgot Password?
           </button>
         </p>
       </div>
